@@ -1,0 +1,137 @@
+/* Chat Page Styles */
+.content {
+  display: flex;
+  flex-direction: column;
+  color: var(--text-color);
+  flex: 1 1 0;
+  min-height: 0;
+}
+
+.messages {
+  flex: 1 1 0;
+  min-height: 0;
+  overflow-y: auto;
+  max-width: 100%;
+  padding: 20px 10px 10px 10px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--button-border) var(--button-bg);
+}
+
+.messages::-webkit-scrollbar {
+  width: 8px;
+}
+
+.messages::-webkit-scrollbar-track {
+  background: var(--button-bg);
+  border-radius: 10px;
+}
+
+.messages::-webkit-scrollbar-thumb {
+  background: var(--button-border);
+  border-radius: 10px;
+}
+
+.messages::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-color);
+}
+
+.message {
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 8px;
+  max-width: 80%;
+}
+
+.message.user-message {
+  align-self: flex-end;
+  background-color: var(--primary-color);
+  color: white;
+  border-radius: 10px;
+  max-width: 80%;
+  padding: 10px;
+  margin: 5px 0;
+  text-align: right;
+}
+
+.message.assistant-message {
+  background-color: var(--button-bg);
+  align-self: flex-start;
+  text-align: left;
+  color: var(--text-color);
+}
+
+.message-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+  font-size: 0.8em;
+  color: var(--text-color);
+  opacity: 0.7;
+}
+
+.message-text {
+  word-wrap: break-word;
+}
+
+.chat-input {
+  display: flex;
+  margin-top: 20px;
+  gap: 10px;
+}
+
+.chat-input textarea {
+  flex: 1;
+  min-height: 50px;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid var(--button-border);
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+.chat-input textarea::placeholder {
+  color: var(--text-color);
+  opacity: 0.7;
+}
+
+.chat-input button {
+  padding: 10px 10px;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.chat-input button:hover {
+  background-color: var(--primary-hover);
+}
+
+.spinner-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  background-color: var(--button-bg);
+  border-radius: 8px;
+  border: 1px solid var(--button-border);
+}
+
+/* Markdown Styles */
+.message-text ul,
+.message-text ol {
+  text-align: left;
+  padding-left: 20px;
+}
+
+.message-text li {
+  margin-bottom: 5px;
+}
+
+.message-text code {
+  background-color: var(--button-bg);
+  padding: 2px 4px;
+  border-radius: 4px;
+  font-size: 90%;
+  color: var(--text-color);
+}
