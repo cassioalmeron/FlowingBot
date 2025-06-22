@@ -1,7 +1,32 @@
 using FlowingBot.Core;
 using FlowingBot.Core.Infrastructure;
+using Serilog;
+
+var folder = Environment.SpecialFolder.LocalApplicationData;
+var path = Environment.GetFolderPath(folder);
+path = Path.Combine(path, "FlowingBot", "Logs");
+
+if (!Directory.Exists(path))
+    Directory.CreateDirectory(path);
+
+path = Path.Combine(path, "log-.log");
+
+Log.Logger = new LoggerConfiguration()
+    .Filter.ByExcluding("StartsWith(SourceContext, 'Microsoft.')")
+    //.Filter.ByIncludingOnly("StartsWith(SourceContext, 'FlowingBot.')")
+    .WriteTo.File(
+        path: path,                             // file Path
+        rollingInterval: RollingInterval.Day,   // Creates a new file per day
+        retainedFileCountLimit: 7,              // Keeps just the 7 more recent files
+        outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss} [{Level:u3}] {Message:lj}{NewLine}{Exception}"
+    )
+    .CreateLogger();
+
+Log.Information("Starting the application...");
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Host.UseSerilog(Log.Logger);
 
 builder.Services.AddCors(options =>
 {
