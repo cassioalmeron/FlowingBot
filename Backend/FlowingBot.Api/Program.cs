@@ -1,5 +1,7 @@
 using FlowingBot.Core;
 using FlowingBot.Core.Infrastructure;
+using FlowingBot.Api.Middleware;
+using FlowingBot.Api.Filters;
 using Serilog;
 
 var folder = Environment.SpecialFolder.LocalApplicationData;
@@ -46,6 +48,10 @@ builder.Services.AddControllers()
     {
         options.JsonSerializerOptions.Converters.Add(new System.Text.Json.Serialization.JsonStringEnumConverter());
     });
+
+// Register the LoggingActionFilter for dependency injection
+builder.Services.AddScoped<LoggingActionFilter>();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -64,6 +70,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+// Add request logging middleware (alternative to base controller approach)
+app.UseRequestLogging();
 
 app.UseCors("AllowAll");
 

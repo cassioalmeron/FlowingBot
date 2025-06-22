@@ -4,11 +4,14 @@ using FlowingBot.Core.Models;
 using FlowingBot.Core.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using FlowingBot.Api.Filters;
+using Serilog;
 
 namespace FlowingBot.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [ServiceFilter(typeof(LoggingActionFilter))]
     public class ChatController : ControllerBase
     {
         private readonly FlowingBotDbContext _context;

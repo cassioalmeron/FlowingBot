@@ -1,12 +1,13 @@
 using Microsoft.AspNetCore.Mvc;
-using FlowingBot.Core.Infrastructure;
 using System.Text;
+using FlowingBot.Api.Filters;
 using FlowingBot.Core.Services;
 
 namespace FlowingBot.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [ServiceFilter(typeof(LoggingActionFilter))]
     public class CollectionController : ControllerBase
     {
         public CollectionController(VectorDatabaseService vectorDatabaseService) =>
