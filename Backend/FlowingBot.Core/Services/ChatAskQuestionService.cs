@@ -1,6 +1,5 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Text;
-using FlowingBot.Core.Infrastructure;
 using FlowingBot.Core.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,11 +8,10 @@ namespace FlowingBot.Core.Services
     public class ChatAskQuestionService
     {
         private readonly FlowingBotDbContext _context;
-        private readonly ILlmService _llmService;
+        private readonly LlmService _llmService;
 
         public ChatAskQuestionService(
-            FlowingBotDbContext context,
-            ILlmService llmService)
+            FlowingBotDbContext context, LlmService llmService)
         {
             _context = context;
             _llmService = llmService;

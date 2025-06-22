@@ -1,4 +1,5 @@
-﻿using FlowingBot.Core;
+﻿using System.Security.Cryptography.X509Certificates;
+using FlowingBot.Core;
 using Microsoft.EntityFrameworkCore;
 
 namespace FlowingBot.Tests.Mocks
@@ -7,8 +8,10 @@ namespace FlowingBot.Tests.Mocks
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            var rnd = new Random();
+
             // Here it configured the Memory Database
-            optionsBuilder.UseInMemoryDatabase("Virtual-Database-Name");
+            optionsBuilder.UseInMemoryDatabase($"Virtual-Database-Name-{rnd.Next(1, 1000)}");
         }
     }
 }

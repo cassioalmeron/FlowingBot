@@ -14,4 +14,10 @@
     <ProjectReference Include="..\FlowingBot.Core\FlowingBot.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Controllers\CollectionController.cs">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Compile>
+  </ItemGroup>
+
 </Project>

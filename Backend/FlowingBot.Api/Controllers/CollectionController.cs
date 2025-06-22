@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using FlowingBot.Core.Infrastructure;
 using System.Text;
+using FlowingBot.Core.Services;
 
 namespace FlowingBot.Api.Controllers
 {
@@ -8,19 +9,22 @@ namespace FlowingBot.Api.Controllers
     [Route("api/[controller]")]
     public class CollectionController : ControllerBase
     {
+        public CollectionController(VectorDatabaseService vectorDatabaseService) =>
+            _vectorDatabaseService = vectorDatabaseService;
+
+        private readonly VectorDatabaseService _vectorDatabaseService;
+
         [HttpGet]
         public async Task<string[]> Get()
         {
-            var service = new QdrantService();
-            var collections = await service.GetCollectionsAsync();
+            var collections = await _vectorDatabaseService.GetCollectionsAsync();
             return collections;
         }
 
         [HttpGet("Query")]
         public async Task<string[]> Query(string query, string collection)
         {
-            var service = new QdrantService(collection);
-            var queryResult = await service.QueryAsync(query);
+            var queryResult = await _vectorDatabaseService.QueryAsync(collection, query);
             return queryResult;
         }
 
@@ -41,17 +45,14 @@ namespace FlowingBot.Api.Controllers
                     {
                         string content;
                         using (var reader = new StreamReader(file.OpenReadStream()))
-                        {
                             content = await reader.ReadToEndAsync();
-                        }
 
                         var memoryStream = new MemoryStream();
                         streams.Add(memoryStream);
 
                         using (var writer = new StreamWriter(memoryStream, Encoding.UTF8, leaveOpen: true))
-                        {
                             await writer.WriteAsync(content);
-                        }
+                        
                         memoryStream.Position = 0;
 
                         var fileContent = new FileContent(file.FileName, memoryStream);
@@ -59,17 +60,14 @@ namespace FlowingBot.Api.Controllers
                     }
                 }
 
-                var service = new QdrantService(request.Name);
-                await service.GenerateEmbeddings(files.ToArray());
+                await _vectorDatabaseService.GenerateEmbeddings(request.Name, files.ToArray());
 
                 return Ok();
             }
             finally
             {
                 foreach (var stream in streams)
-                {
                     stream.Dispose();
-                }
             }
         }
     }

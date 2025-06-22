@@ -1,5 +1,4 @@
-using FlowingBot.Core.Infrastructure;
-using FlowingBot.Core.Models;
+using FlowingBot.Core.Services;
 
 namespace FlowingBot.Tests.Mocks
 {
@@ -12,7 +11,7 @@ namespace FlowingBot.Tests.Mocks
             _mockResponses = mockResponses;
         }
 
-        public async IAsyncEnumerable<string> ProcessChat(Chat chat, string userPrompt, [System.Runtime.CompilerServices.EnumeratorCancellation] CancellationToken cancellationToken = default)
+        public async IAsyncEnumerable<string> ProcessChat(IEnumerable<ChatMessage> messages, CancellationToken cancellationToken = default)
         {
             foreach (var response in _mockResponses)
             {
@@ -21,4 +20,4 @@ namespace FlowingBot.Tests.Mocks
             }
         }
     }
-} 
+}

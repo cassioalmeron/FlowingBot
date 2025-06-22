@@ -7,7 +7,7 @@ namespace FlowingBot.Tests
     public class ChatCreateServiceTest
     {
         [TestMethod]
-        public async Task TestMethod1()
+        public async Task ChatCreateService_Execute()
         {
             var context = new TestDbContext();
             var service = new ChatCreateService(context);

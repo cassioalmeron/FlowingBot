@@ -1,6 +1,5 @@
 using System.Runtime.CompilerServices;
 using FlowingBot.Core;
-using FlowingBot.Core.Infrastructure;
 using FlowingBot.Core.Models;
 using FlowingBot.Core.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -13,9 +12,9 @@ namespace FlowingBot.Api.Controllers
     public class ChatController : ControllerBase
     {
         private readonly FlowingBotDbContext _context;
-        private readonly ILlmService _llmService;
+        private readonly LlmService _llmService;
 
-        public ChatController(FlowingBotDbContext context, ILlmService llmService)
+        public ChatController(FlowingBotDbContext context, LlmService llmService)
         {
             _context = context;
             _llmService = llmService;

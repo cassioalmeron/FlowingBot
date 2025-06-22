@@ -1,3 +1,4 @@
+using FlowingBot.Core.Infrastructure;
 using FlowingBot.Core.Models;
 using FlowingBot.Core.Services;
 using FlowingBot.Tests.Mocks;
@@ -17,7 +18,10 @@ namespace FlowingBot.Tests
             await context.SaveChangesAsync();
 
             var mockResponses = new[] { "Hello", "How can I help you?" };
-            var llmService = new MockLlmService(mockResponses);
+            var mockLlmService = new MockLlmService(mockResponses);
+            var mockVectorDatabaseService = new MockVectorDatabaseService();
+            var vectorDatabaseService = new VectorDatabaseService(mockVectorDatabaseService);
+            var llmService = new LlmService(vectorDatabaseService, mockLlmService);
             var service = new ChatAskQuestionService(context, llmService);
 
             // Act

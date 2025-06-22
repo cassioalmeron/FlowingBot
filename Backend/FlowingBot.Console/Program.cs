@@ -3,7 +3,7 @@
 //await ChatBot.Core.HelpCenterChatbot.StartChatBot();
 
 using FlowingBot.Core.Infrastructure;
-using UglyToad.PdfPig.Core;
+using FlowingBot.Core.Services;
 
 //var l = await ChromaService.QueryChromaAsync("How to change a Vendor in a PO?");
 //Console.WriteLine("Result:");
@@ -26,13 +26,13 @@ using UglyToad.PdfPig.Core;
 //Console.WriteLine($"TaxRate: {calc.TaxRate}");
 //Console.WriteLine($"Total: {calc.Total}");
 
-var pdfContent = FileContent.FromPath(@"C:\Users\cassi\OneDrive\Desktop\SalaryGuide_LATAM-2024_for Developers.pdf");
+//var pdfContent = FileContent.FromPath(@"C:\Users\cassi\OneDrive\Desktop\SalaryGuide_LATAM-2024_for Developers.pdf");
 
-var service = new QdrantService("pdf-test");
+var service = new QdrantService();
 //await service.GenerateEmbeddings(pdfContent);
 //await service.GenerateEmbeddings(@"C:\Temp\Sigma\Documentation\help-content-main\FAQ");
 
-await service.QueryAsync("What is the salary average for a Senior Develer in LATAM?");
+await service.QueryAsync("pdf-test", "What is the salary average for a Senior Develer in LATAM?");
 
 
 Console.WriteLine($"PDF Done!");
