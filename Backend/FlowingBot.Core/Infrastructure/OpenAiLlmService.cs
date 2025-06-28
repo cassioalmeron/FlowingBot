@@ -13,11 +13,8 @@ namespace FlowingBot.Core.Infrastructure
         private readonly OpenAIClient _client;
         private readonly string _modelName;
 
-        public OpenAiLlmService(ConfigurationGetService configuration)
+        public OpenAiLlmService(string modelName, string apiKey)
         {
-            var apiKey = configuration.GetValueSync("OpenAIKey");
-            var modelName = configuration.GetValueSync("ModelName");
-
             _client = new OpenAIClient(new ApiKeyCredential(apiKey));
             _modelName = modelName;
         }

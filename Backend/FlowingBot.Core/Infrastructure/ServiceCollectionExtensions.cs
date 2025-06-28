@@ -10,9 +10,18 @@ namespace FlowingBot.Core.Infrastructure
             services.AddScoped<LlmService>();
             services.AddScoped<VectorDatabaseService>();
             services.AddScoped<ConfigurationGetService>();
+            services.AddScoped<ConfigurationSaveService>();
+            //services.AddScoped<ConfigurationSeedService>();
 
-            //services.AddScoped<ILlmService, OllamaLlmService>();
-            services.AddScoped<ILlmService, OpenAiLlmService>();
+            // Register the factory
+            services.AddScoped<LlmServiceFactory>();
+
+            // Register ILlmService using factory pattern
+            services.AddScoped<ILlmService>(provider =>
+            {
+                var factory = provider.GetRequiredService<LlmServiceFactory>();
+                return factory.CreateLlmService();
+            });
 
             services.AddScoped<IVectorDatabaseService, QdrantService>();
 

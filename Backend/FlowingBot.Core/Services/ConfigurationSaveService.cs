@@ -12,7 +12,10 @@ namespace FlowingBot.Core.Services
 
         public async Task Execute(string key, string value)
         {
-            var configuration = await _context.Configurations.SingleOrDefaultAsync(x => x.Key == key);
+            var configuration = await _context.Configurations
+                .AsTracking()
+                .SingleOrDefaultAsync(x => x.Key == key);
+                
             if (configuration == null)
             {
                 configuration = new Configuration { Key = key, Value = value };

@@ -11,7 +11,10 @@ namespace FlowingBot.Tests.Mocks
             var rnd = new Random();
 
             // Here it configured the Memory Database
-            optionsBuilder.UseInMemoryDatabase($"Virtual-Database-Name-{rnd.Next(1, 1000)}");
+            optionsBuilder.UseInMemoryDatabase($"Virtual-Database-Name-{rnd.Next(1, 1000)}")
+                .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
+                .EnableSensitiveDataLogging()
+                .EnableDetailedErrors();
         }
     }
 }

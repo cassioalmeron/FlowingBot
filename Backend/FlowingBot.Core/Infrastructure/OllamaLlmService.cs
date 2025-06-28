@@ -2,7 +2,6 @@ using System.Runtime.CompilerServices;
 using FlowingBot.Core.Models;
 using FlowingBot.Core.Services;
 using Microsoft.Extensions.AI;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -10,19 +9,16 @@ namespace FlowingBot.Core.Infrastructure
 {
     public class OllamaLlmService : ILlmService
     {
-        private readonly IConfiguration _configuration;
+        public OllamaLlmService(string modelName) =>
+            _modelName = modelName;
 
-        public OllamaLlmService(IConfiguration configuration) =>
-            _configuration = configuration;
+        private readonly string _modelName;
 
         public async IAsyncEnumerable<string> ProcessChat(IEnumerable<Services.ChatMessage> messages, [EnumeratorCancellation] CancellationToken cancellationToken = default)
         {
             var builder = Host.CreateApplicationBuilder();
-            var modelName = _configuration.GetValue<string>("Ollama:ModelName");
-            if (string.IsNullOrEmpty(modelName))
-                throw new ArgumentException("The model is not defined!");
 
-            builder.Services.AddChatClient(new OllamaChatClient(new Uri("http://localhost:11434"), modelName));
+            builder.Services.AddChatClient(new OllamaChatClient(new Uri("http://localhost:11434"), _modelName));
             var app = builder.Build();
             var chatClient = app.Services.GetRequiredService<IChatClient>();
 

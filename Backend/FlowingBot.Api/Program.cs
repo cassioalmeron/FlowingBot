@@ -2,6 +2,7 @@ using FlowingBot.Core;
 using FlowingBot.Core.Infrastructure;
 using FlowingBot.Api.Middleware;
 using FlowingBot.Api.Filters;
+using FlowingBot.Core.Services;
 using Serilog;
 
 var folder = Environment.SpecialFolder.LocalApplicationData;

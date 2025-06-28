@@ -7,6 +7,7 @@ const Config = () => {
     const { isDarkMode, toggleDarkMode } = useTheme()
     const [embeddingModel, setEmbeddingModel] = useState('')
     const [openAIKey, setOpenAIKey] = useState('')
+    const [source, setSource] = useState('OpenAI')
     const [loading, setLoading] = useState(true)
     const [saving, setSaving] = useState(false)
 
@@ -21,11 +22,12 @@ const Config = () => {
             
             // Map configurations to form fields
             configurations.forEach(config => {
-                if (config.key === 'ModelName') {
+                if (config.key === 'ModelName')
                     setEmbeddingModel(config.value)
-                } else if (config.key === 'OpenAIKey') {
+                else if (config.key === 'OpenAIKey')
                     setOpenAIKey(config.value)
-                }
+                else if (config.key === 'Source')
+                    setSource(config.value)
             })
         } catch (error) {
             console.error('Error loading configurations:', error)
@@ -40,7 +42,8 @@ const Config = () => {
             setSaving(true)
             const configurations: Configuration[] = [
                 { key: 'ModelName', value: embeddingModel },
-                { key: 'OpenAIKey', value: openAIKey }
+                { key: 'OpenAIKey', value: openAIKey },
+                { key: 'Source', value: source }
             ]
             
             await api.configurations.save(configurations)
@@ -89,6 +92,32 @@ const Config = () => {
                         placeholder="Enter your OpenAI API key"
                         className="form-input"
                     />
+                </div>
+
+                <div className="form-group">
+                    <label>Source</label>
+                    <div className="radio-group">
+                        <label className="radio-option">
+                            <input
+                                type="radio"
+                                name="source"
+                                value="OpenAI"
+                                checked={source === 'OpenAI'}
+                                onChange={(e) => setSource(e.target.value)}
+                            />
+                            <span>OpenAI</span>
+                        </label>
+                        <label className="radio-option">
+                            <input
+                                type="radio"
+                                name="source"
+                                value="Ollama"
+                                checked={source === 'Ollama'}
+                                onChange={(e) => setSource(e.target.value)}
+                            />
+                            <span>Ollama</span>
+                        </label>
+                    </div>
                 </div>
 
                 <div className="form-group">
