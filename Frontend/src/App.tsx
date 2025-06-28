@@ -8,6 +8,7 @@ import Home from './Pages/Home'
 import Tests from './Pages/Tests'
 import Collection from './Pages/Collection'
 import { ThemeProvider } from './Utils/ThemeContext'
+import Config from './Pages/Config'
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
             <Route path="/chat/:chatId" element={<Chat />} />
             <Route path="/tests" element={<Tests />} />
             <Route path="/collection" element={<Collection />} />
+            <Route path="/config" element={<Config />} />
           </Routes>
           <ToastContainer
             position="top-right"

@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FlowingBot.Core.Migrations
 {
     [DbContext(typeof(FlowingBotDbContext))]
-    [Migration("20250607215742_InicialMigration")]
+    [Migration("20250627233300_InicialMigration")]
     partial class InicialMigration
     {
         /// <inheritdoc />
@@ -44,6 +44,25 @@ namespace FlowingBot.Core.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Chats");
+                });
+
+            modelBuilder.Entity("FlowingBot.Core.Models.Configuration", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Key")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Value")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Configurations");
                 });
 
             modelBuilder.Entity("FlowingBot.Core.Models.Message", b =>

@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using FlowingBot.Api.Filters;
-using Serilog;
 
 namespace FlowingBot.Api.Controllers
 {

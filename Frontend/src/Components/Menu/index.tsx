@@ -12,7 +12,6 @@ interface MenuItem {
 const Menu: React.FC = () => {
   const [menuItems, setMenuItems] = useState<MenuItem[]>([])
   const [error, setError] = useState<string | null>(null)
-  const { isDarkMode, toggleDarkMode } = useTheme()
 
   useEffect(() => {
     const fetchMenuItems = async () => {
@@ -36,13 +35,6 @@ const Menu: React.FC = () => {
         <div className="nav-links">
           <NavLink to="/" className="nav-link" end>Home</NavLink>
         </div>
-        <button 
-          onClick={toggleDarkMode} 
-          className="theme-toggle"
-          aria-label={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
-        >
-          {isDarkMode ? '☀️' : '🌙'}
-        </button>
       </div>
       <hr className="nav-divider" />
       <div className="dynamic-menu-items">

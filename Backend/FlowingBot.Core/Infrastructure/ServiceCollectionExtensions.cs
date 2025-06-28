@@ -9,7 +9,7 @@ namespace FlowingBot.Core.Infrastructure
         {
             services.AddScoped<LlmService>();
             services.AddScoped<VectorDatabaseService>();
-
+            services.AddScoped<ConfigurationGetService>();
 
             //services.AddScoped<ILlmService, OllamaLlmService>();
             services.AddScoped<ILlmService, OpenAiLlmService>();

@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-using System.ClientModel;
+﻿using System.ClientModel;
 using System.Runtime.CompilerServices;
 using FlowingBot.Core.Models;
 using FlowingBot.Core.Services;
@@ -14,12 +13,13 @@ namespace FlowingBot.Core.Infrastructure
         private readonly OpenAIClient _client;
         private readonly string _modelName;
 
-        public OpenAiLlmService(IConfiguration configuration)
+        public OpenAiLlmService(ConfigurationGetService configuration)
         {
-            var apiKey = configuration["OpenAI:ApiKey"];
-            _modelName = configuration["OpenAI:ModelName"] ?? "gpt-3.5-turbo";
+            var apiKey = configuration.GetValueSync("OpenAIKey");
+            var modelName = configuration.GetValueSync("ModelName");
 
             _client = new OpenAIClient(new ApiKeyCredential(apiKey));
+            _modelName = modelName;
         }
 
         private static List<ChatMessage> ConvertToOpenAIMessages(IEnumerable<Services.ChatMessage> messages)

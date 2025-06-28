@@ -43,6 +43,25 @@ namespace FlowingBot.Core.Migrations
                     b.ToTable("Chats");
                 });
 
+            modelBuilder.Entity("FlowingBot.Core.Models.Configuration", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Key")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Value")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Configurations");
+                });
+
             modelBuilder.Entity("FlowingBot.Core.Models.Message", b =>
                 {
                     b.Property<int>("Id")

@@ -23,6 +23,11 @@ export interface CollectionResponse {
   files: string[];
 }
 
+export interface Configuration {
+  key: string;
+  value: string;
+}
+
 // API functions
 export const api = {
   // Chat endpoints
@@ -87,6 +92,18 @@ export const api = {
     query: async (query: string, collection: string): Promise<string[]> => {
       const response = await axios.get<string[]>(`${BASE_URL}/Collection/Query?query=${query}&collection=${collection}`);
       return response.data;
+    },
+  },
+
+  // Configuration endpoints
+  configurations: {
+    getAll: async (): Promise<Configuration[]> => {
+      const response = await axios.get<Configuration[]>(`${BASE_URL}/Configurations`);
+      return response.data;
+    },
+
+    save: async (configurations: Configuration[]): Promise<void> => {
+      await axios.post(`${BASE_URL}/Configurations`, configurations);
     },
   },
 }; 
