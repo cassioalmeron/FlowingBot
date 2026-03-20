@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
-import { useTheme } from '../../Utils/ThemeContext'
 import './styles.css'
 import { api } from '../../services/api'
 

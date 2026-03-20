@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./Backend
+      args:
+        - API_PORT=${API_PORT}
+    container_name: ${APP_NAME}-backend
+    ports:
+      - "${API_PORT}:${API_PORT}"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
+      - ASPNETCORE_URLS=http://+:${API_PORT}
+      - Ollama__ModelName=${OLLAMA_MODEL_NAME}
+      - OpenAI__ApiKey=${OPENAI_API_KEY}
+      - OpenAI__ModelName=${OPENAI_MODEL_NAME}
+    volumes:
+      - backend-data:/app/data
+    networks:
+      - flowingbot-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:${API_PORT}/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./Frontend
+      args:
+        - VITE_API_BASE_URL=${VITE_API_BASE_URL}
+        - VITE_APP_NAME=${VITE_APP_NAME}
+    container_name: ${APP_NAME}-frontend
+    ports:
+      - "${FRONTEND_PORT}:80"
+    environment:
+      - API_PORT=${API_PORT}
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks:
+      - flowingbot-network
+    restart: unless-stopped
+
+networks:
+  flowingbot-network:
+    driver: bridge
+
+volumes:
+  backend-data:
+    driver: local

@@ -1,0 +1,13 @@
+**/.git
+**/.gitignore
+**/.vs
+**/.vscode
+**/bin
+**/obj
+**/.DS_Store
+**/*.user
+**/*.suo
+.dockerignore
+Dockerfile
+.env
+.env.*.local

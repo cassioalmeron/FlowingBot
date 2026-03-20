@@ -4,6 +4,7 @@ using FlowingBot.Api.Middleware;
 using FlowingBot.Api.Filters;
 using FlowingBot.Core.Services;
 using Serilog;
+using Microsoft.EntityFrameworkCore;
 
 var folder = Environment.SpecialFolder.LocalApplicationData;
 var path = Environment.GetFolderPath(folder);
@@ -63,6 +64,23 @@ builder.Services.AddDbContext<FlowingBotDbContext>();
 
 var app = builder.Build();
 
+// Apply database migrations automatically
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<FlowingBotDbContext>();
+    Log.Information("Applying database migrations...");
+    try
+    {
+        dbContext.Database.Migrate();
+        Log.Information("Database migrations applied successfully.");
+    }
+    catch (Exception ex)
+    {
+        Log.Error(ex, "An error occurred while applying database migrations.");
+        throw;
+    }
+}
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -80,5 +98,9 @@ app.UseCors("AllowAll");
 app.UseAuthorization();
 
 app.MapControllers();
+
+// Health check endpoint for container orchestration
+app.MapGet("/health", () => Results.Ok(new { status = "healthy" }))
+    .WithName("Health");
 
 app.Run();
