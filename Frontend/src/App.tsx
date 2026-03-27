@@ -1,14 +1,14 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { HashRouter as Router, Routes, Route } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import Menu from './Components/Menu'
+import Menu from '@/Components/Menu'
 import './App.css'
-import Chat from './Pages/Chat'
-import Home from './Pages/Home'
-import Tests from './Pages/Tests'
-import Collection from './Pages/Collection'
-import { ThemeProvider } from './Utils/ThemeContext'
-import Config from './Pages/Config'
+import Chat from '@/Pages/Chat'
+import Home from '@/Pages/Home'
+import Tests from '@/Pages/Tests'
+import Collection from '@/Pages/Collection'
+import { ThemeProvider } from '@/contexts/ThemeContext'
+import Config from '@/Pages/Config'
 
 function App() {
   return (
