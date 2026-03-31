@@ -5,8 +5,8 @@
 **/dist
 **/build
 **/.DS_Store
-**/.env
-**/.env.*.local
+.env
+.env.*.local
 **/coverage
 **/*.tgz
 .dockerignore

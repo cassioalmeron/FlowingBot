@@ -20,7 +20,7 @@ namespace FlowingBot.Core.Infrastructure
         public ILlmService CreateLlmService()
         {
             var configurationService = _serviceProvider.GetRequiredService<ConfigurationGetService>();
-            var source = configurationService.GetValueSync("Source");
+            var source = configurationService.GetValueSync("Source") ?? "Ollama";
 
             switch (source)
             {

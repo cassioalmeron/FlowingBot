@@ -23,13 +23,14 @@ namespace FlowingBot.Core.Services
         }
 
         // Synchronous version for use in constructors
-        public string GetValueSync(string key)
+        public string? GetValueSync(string key)
         {
             var configuration = _context.Configurations
                 .SingleOrDefault(x => x.Key == key);
-                
+
             if (configuration == null)
-                throw new Exception($"\"{key}\" not configured!");
+                //throw new Exception($"\"{key}\" not configured!");
+                return null;
 
             return configuration.Value;
         }

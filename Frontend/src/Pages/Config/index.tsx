@@ -1,4 +1,4 @@
-import { useTheme } from '../../Utils/ThemeContext'
+import { useTheme } from '@/contexts/ThemeContext'
 import { useState, useEffect } from 'react'
 import { api, Configuration } from '../../services/api'
 import { showToast } from '../../Utils/toast'

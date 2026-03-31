@@ -16,25 +16,27 @@ function App() {
       <Router>
         <div className="container">
           <Menu />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/chat/:chatId" element={<Chat />} />
-            <Route path="/tests" element={<Tests />} />
-            <Route path="/collection" element={<Collection />} />
-            <Route path="/config" element={<Config />} />
-          </Routes>
-          <ToastContainer
-            position="top-right"
-            autoClose={3000}
-            hideProgressBar={false}
-            newestOnTop
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme="colored"
-          />
+          <div className="content">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/chat/:chatId" element={<Chat />} />
+              <Route path="/tests" element={<Tests />} />
+              <Route path="/collection" element={<Collection />} />
+              <Route path="/config" element={<Config />} />
+            </Routes>
+            <ToastContainer
+              position="top-right"
+              autoClose={3000}
+              hideProgressBar={false}
+              newestOnTop
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="colored"
+            />
+          </div>
         </div>
       </Router>
     </ThemeProvider>

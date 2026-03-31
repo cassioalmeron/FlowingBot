@@ -16,10 +16,17 @@ const Menu: React.FC = () => {
     const fetchMenuItems = async () => {
       try {
         const response = await api.chat.getAll()
-        setMenuItems(response)
+        console.log('Menu items response:', response)
+        if (Array.isArray(response)) {
+          setMenuItems(response)
+        } else {
+          console.warn('Response is not an array:', response)
+          setMenuItems([])
+        }
       } catch (err) {
         console.error('Error fetching menu items:', err)
         setError('Failed to load menu items')
+        setMenuItems([])
       }
     }
 
@@ -30,18 +37,19 @@ const Menu: React.FC = () => {
 
   return (
     <nav className="main-navigation">
-      <div className="nav-header">
-        <div className="nav-links">
-          <NavLink to="/" className="nav-link" end>Home</NavLink>
-        </div>
+      <div className="nav-links-section">
+        <NavLink to="/" className="nav-link" end>Home</NavLink>
+        <NavLink to="/collection" className="nav-link">Collections</NavLink>
+        <NavLink to="/config" className="nav-link">Config</NavLink>
+        <NavLink to="/tests" className="nav-link">Tests</NavLink>
       </div>
       <hr className="nav-divider" />
       <div className="dynamic-menu-items">
         {menuItems.map((item) => (
-          <NavLink 
-            key={item.id} 
-            to={`/chat/${item.id}`} 
-            className={({ isActive }) => 
+          <NavLink
+            key={item.id}
+            to={`/chat/${item.id}`}
+            className={({ isActive }) =>
               `menu-item ${isActive ? 'menu-item-active' : ''}`
             }
           >
